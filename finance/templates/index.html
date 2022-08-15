@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Current stocks
+{% endblock %}
+
+{% block main %}
+<div>
+    <h2>Owned stocks</h2>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Stock</th>
+                <th>Shares</th>
+                <th>Price (usd)</th>
+                <th>Total (usd)</th>
+                <th>Sell/Buy</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if opt == 1 %}
+                {% for transactions in stock %}
+                    <tr>
+                        <td>{{ transactions["stock_symbol"] }}</td>
+                        <td>{{ transactions["number_of_shares"] }}</td>
+                        <td>{{ transactions["current_price"] | usd}}</td>
+                        <td>{{ transactions["total"] | usd}}</td>
+                        <td>
+                            <form action="/?name={{ transactions['stock_symbol'] }}" method="post">
+                                <select name="option">
+                                    <option disable selected>Action</option>
+                                    <option>Buy</option>
+                                    <option>Sell</option>
+                                </select>
+                                <input type="submit" value="go" class="btn btn-primary">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+            <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+<p></p>
+<div>
+    <h2>Summary</h2>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Current cash (usd)</td>
+                <th>Value of current stocks (usd)</th>
+                <th>Total (cash + total stocks value)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ suma }}</td>
+                <td>{{ domo }}</td>
+                <td>{{ total }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

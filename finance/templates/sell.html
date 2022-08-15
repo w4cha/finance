@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell
+{% endblock %}
+
+{% block main %}
+    <form action="/sell" method="post">
+        <div class="select">
+            {% if mode == 1 %}
+                <select name="symbol" id="only" onchange="consulta();">
+                    <option selected>Stocks</option>
+                    {% for stock in options %}
+                        <option>{{ stock["stock_symbol"] }}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                <select name="symbol" id="only">
+                    <option selected>{{ select or "Stocks" }}</option>
+                </select>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="num" name="shares" placeholder="Number of shares" type="text" oninput="gain();">
+        </div>
+        <button class="btn btn-primary" type="submit"">Sell stock</button>
+    </form>
+    <div>
+        <p>
+        <h4 id="placeholder">{{ right or "" }}</h4>
+        </p>
+    </div>
+{% endblock %}

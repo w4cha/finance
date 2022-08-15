@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Transaction history
+{% endblock %}
+
+{% block main %}
+<div>
+    <h2> All transactions</h2>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Stock symbol</th>
+                <th>Transaction type</th>
+                <th>Shares bought/sold</th>
+                <th>Price when bought/sold (usd)</th>
+                <th>Time of transaction</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if ruta == 1 %}
+                {% for transactions in table %}
+                    <tr>
+                        <td>{{ transactions["symbol"] }}</td>
+                        <td>{{ transactions["operation"] }}</td>
+                        <td>{{ transactions["shares"] }}</td>
+                        <td>{{ transactions["price"] | usd }}</td>
+                        <td>{{ transactions["time_of_transaction"] }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+            <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
